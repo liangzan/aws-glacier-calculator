@@ -177,11 +177,10 @@ var glacierCalculator = (function() {
   cost.storageCost = function(scope) {
     if (typeof scope.storedData != 'undefined' && typeof scope.storedDuration != 'undefined') {
       var durationInMonth = scope.storedDuration / 30;
-      return regionStorageRate(scope) * (scope.storedData / durationInMonth);
+      return regionStorageRate(scope) * scope.storedData * durationInMonth;
     } else {
       return 0;
     }
-    return (scope.storedData * scope.storedDuration) || 0;
   };
 
   /**
