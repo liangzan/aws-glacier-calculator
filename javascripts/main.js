@@ -19,6 +19,8 @@ function GlacierCalculatorCtrl($scope) {
  */
 var glacierCalculator = (function() {
 
+  var retrieveJobHours = 4;
+
   /**
    * Returns the storage rate for the region
    *
@@ -111,8 +113,8 @@ var glacierCalculator = (function() {
    * @return {Float}
    */
   function peakHourlyRetrieval(scope) {
-    if (typeof scope.bandwidth != 'undefined') {
-      return (scope.bandwidth / 1000) * 60 * 60;
+    if (typeof scope.retrieveData != 'undefined') {
+      return scope.retrieveData / retrieveJobHours;
     } else {
       return 0;
     }
@@ -127,54 +129,7 @@ var glacierCalculator = (function() {
    */
   function freeHourlyRetrieval(scope) {
     if (typeof scope.storedData != 'undefined') {
-      return (scope.storedData * 0.05) / (30 * 24);
-    } else {
-      return 0;
-    }
-  }
-
-  /**
-   * Returns the free retrieval data in GB
-   *
-   * @private
-   * @param {Object} scope - The Angular scope object
-   * @return {Float}
-   */
-  function freeRetrievalData(scope) {
-    if (typeof scope.storedData != 'undefined') {
-      return 0.05 * scope.storedData;
-    } else {
-      return 0;
-    }
-  }
-
-  /**
-   * Returns the time needed to retrieve the data in hours
-   *
-   * @private
-   * @param {Object} scope - The Angular scope object
-   * @return {Float}
-   */
-  function retrievalDurationInHours(scope) {
-    if (typeof scope.retrieveDuration != 'undefined') {
-      var hoursDivider = 60 * 60;
-      return (scope.retrieveDuration - (scope.retrieveDuration % hoursDivider)) / hoursDivider;
-    } else {
-      return 0;
-    }
-  }
-
-  /**
-   * Returns the time needed to retrieve the data in days
-   *
-   * @private
-   * @param {Object} scope - The Angular scope object
-   * @return {Float}
-   */
-  function retrievalDurationInDays(scope) {
-    if (typeof scope.retrieveDuration != 'undefined') {
-      var daysDivider = 60 * 60 * 24;
-      return (scope.retrieveDuration - (scope.retrieveDuration % daysDivider)) / daysDivider;
+      return (scope.storedData * 0.05) / (30 * retrieveJobHours);
     } else {
       return 0;
     }
@@ -237,11 +192,12 @@ var glacierCalculator = (function() {
    * @return {Float}
    */
   cost.retrievalCost = function(scope) {
-    if (typeof scope.retrieveData != 'undefined' && typeof scope.bandwidth != 'undefined') {
-      scope.retrieveDuration = (scope.retrieveData * 1000) / scope.bandwidth;
-      if (scope.retrieveData > freeRetrievalData(scope)) {
-	var peakHourRetrievalData = peakHourlyRetrieval(scope) - freeHourlyRetrieval(scope);
-	return regionRetrievalRate(scope) * peakHourRetrievalData * retrievalDurationInHours(scope);
+    if (typeof scope.retrieveData != 'undefined') {
+      console.log(peakHourlyRetrieval(scope));
+      console.log(freeHourlyRetrieval(scope));
+      var peakHourRetrievalData = peakHourlyRetrieval(scope) - freeHourlyRetrieval(scope);
+      if (peakHourRetrievalData > 0) {
+	return regionRetrievalRate(scope) * peakHourRetrievalData * 720;
       } else {
 	return 0;
       }
@@ -305,53 +261,3 @@ var glacierCalculator = (function() {
 
   return cost;
 }());
-
-/**
- * Implementation for the days filter. Given a number denoting
- * seconds, it returns a string in the form of
- * x days x hours x minutes x seconds
- */
-angular.module('GlacierCalculatorModule', []).
-  filter('days', function() {
-    return function(input) {
-      if (typeof input === 'number' &&
-	  input != Number.POSITIVE_INFINITY &&
-	  input != Number.NEGATIVE_INFINITY) {
-	var daysDivider = 60 * 60 * 24;
-	var hoursDivider = 60 * 60;
-	var minutesDivider = 60;
-
-	var output = '';
-	var currentInput = input;
-
-	if (currentInput > daysDivider) {
-	  var daysTaken = (currentInput - (currentInput % daysDivider)) / daysDivider;
-	  currentInput = currentInput % daysDivider;
-	  output += daysTaken + ' days';
-	}
-
-	if (currentInput > hoursDivider) {
-	  var hoursTaken = (currentInput - (currentInput % hoursDivider)) / hoursDivider;
-	  currentInput = currentInput % hoursDivider;
-	  if (output.length > 0) { output += ' '; }
-	  output += hoursTaken + ' hours';
-	}
-
-	if (currentInput > minutesDivider) {
-	  var minutesTaken = (currentInput - (currentInput % minutesDivider)) / minutesDivider;
-	  currentInput = currentInput % minutesDivider;
-	  if (output.length > 0) { output += ' '; }
-	  output += minutesTaken + ' minutes';
-	}
-
-	if (currentInput > 0) {
-	  if (output.length > 0) { output += ' '; }
-	  output += currentInput + ' seconds';
-	}
-
-	return output;
-      } else {
-	return '';
-      }
-    };
-  });

@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="GlacierCalculatorModule">
+<html ng-app>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -31,7 +31,8 @@
 	    <li>Request costs are assumed to be zero</li>
 	    <li>Data transfer rate beyond 350TB is assumed to be the the same as the 350TB tier</li>
 	    <li>You can retrieve up to 5% of your stored data for free each month</li>
-	    <li>You are downloading at a constant rate</li>
+	    <li>You are making 1 retrieval job request which takes 4 hours</li>
+	    <li>Retrieval time is the time taken for AWS to make the data available. Not the download time</li>
 	  </ol>
 	</p>
       </header>
@@ -64,8 +65,6 @@
 	<h3>Retrieval information</h3>
 	<p>
 	  <label>Amount of data to retrieve (GB)</label><input type="text" ng-model="retrieveData" ng-change="calculate()"/><br/>
-	  <label>Download bandwidth (MB/second)</label><input type="text" ng-model="bandwidth" ng-change="calculate()"/>
-	  <label>Time needed to retrieve</label>{{ retrieveDuration | days }}
 	</p>
 
 	<h3>Early deletion information</h3>
