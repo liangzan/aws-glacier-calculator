@@ -75,7 +75,9 @@
 	  <label>Retrieval Cost</label>{{ retrievalCost | currency }}<br/>
 	  <label>Deletion Cost</label>{{ deletionCost | currency }}<br/>
 	  <label>Transfer Out Cost</label>{{ transferCost | currency }}<br/>
-	  <label>Total Cost</label>{{ totalCost | currency }}
+	  <span class="total-cost">
+	    <label>Total Cost</label>{{ totalCost | currency }}
+	  </span>
 	</p>
 
       </section>

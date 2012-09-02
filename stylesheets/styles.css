@@ -268,3 +268,9 @@ header ol li {
     width: auto;
     height: auto;
 }
+
+span.total-cost {
+    border: #999 1px solid;
+    border-right: none;
+    border-left: none;
+}
