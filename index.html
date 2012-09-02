@@ -57,21 +57,21 @@
 
 	<h3>Storage information</h3>
 	<p>
-	  <label>Amount of data stored(GB)</label><input type="text" ng-model="storedData" ng-change="calculate()"/><br/>
-	  <label>Duration(days)</label><input type="text" ng-model="storedDuration" ng-change="calculate()"/>
+	  <label>Amount of data stored (GB)</label><input type="text" ng-model="storedData" ng-change="calculate()"/><br/>
+	  <label>Duration that data was kept (days)</label><input type="text" ng-model="storedDuration" ng-change="calculate()"/>
 	</p>
 
 	<h3>Retrieval information</h3>
 	<p>
-	  <label>Amount of data to retrieve(GB)</label><input type="text" ng-model="retrieveData" ng-change="calculate()"/><br/>
-	  <label>Download Bandwidth(MB/second)</label><input type="text" ng-model="bandwidth" ng-change="calculate()"/>
+	  <label>Amount of data to retrieve (GB)</label><input type="text" ng-model="retrieveData" ng-change="calculate()"/><br/>
+	  <label>Download bandwidth (MB/second)</label><input type="text" ng-model="bandwidth" ng-change="calculate()"/>
 	  <label>Time needed to retrieve</label>{{ retrieveDuration | days }}
 	</p>
 
 	<h3>Early deletion information</h3>
 	<p>
-	  <label>Amount of data to be deleted(GB)</label><input type="text" ng-model="deletedData" ng-change="calculate()"/><br/>
-	  <label>Duration that data was kept(days)</label><input type="text" ng-model="deletedDuration" ng-change="calculate()"/>
+	  <label>Amount of data to be deleted (GB)</label><input type="text" ng-model="deletedData" ng-change="calculate()"/><br/>
+	  <label>Duration that data was kept (days)</label><input type="text" ng-model="deletedDuration" ng-change="calculate()"/>
 	</p>
 
 	<h3>Estimated cost breakdown</h3>
@@ -79,7 +79,7 @@
 	  <label>Storage Cost</label>{{ storageCost | currency }}<br/>
 	  <label>Retrieval Cost</label>{{ retrievalCost | currency }}<br/>
 	  <label>Deletion Cost</label>{{ deletionCost | currency }}<br/>
-	  <label>Transfer Out Cost</label>{{ transferCost | currency }}<br/>
+	  <label>Transfer Cost</label>{{ transferCost | currency }}<br/>
 	  <span class="total-cost">
 	    <label>Total Cost</label>{{ totalCost | currency }}
 	  </span>
