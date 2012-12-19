@@ -30,7 +30,7 @@
 	    <li>1 month equals 30 days</li>
 	    <li>Request costs are assumed to be zero</li>
 	    <li>Data transfer rate beyond 350TB is assumed to be the the same as the 350TB tier</li>
-	    <li>You are making 1 retrieval job request which takes 4 hours</li>
+	    <li>You are making a single set of retrieval job requests, evenly spread over the retrieval time</li>
 	  </ol>
 	</p>
       </header>
@@ -63,6 +63,7 @@
 	<h3>Retrieval information</h3>
 	<p>
 	  <label>Amount of data to retrieve (GB)</label><input type="text" ng-model="retrieveData" ng-change="calculate()"/><br/>
+	  <label>Length of time for retrieval (hours, min 4)</label><input type="text" ng-model="retrieveJobHours" ng-change="calculate()"/><br/>
 	</p>
 
 	<h3>Early deletion information</h3>
