@@ -2,6 +2,7 @@
  * Angular Controller for the calculator
  */
 function GlacierCalculatorCtrl($scope) {
+  $scope.retrieveJobHours = 4; // Amazon default
   $scope.calculate = function() {
     $scope.storageCost = glacierCalculator.storageCost($scope);
     $scope.retrievalCost = glacierCalculator.retrievalCost($scope);
@@ -12,14 +13,19 @@ function GlacierCalculatorCtrl($scope) {
       $scope.transferCost +
       $scope.deletionCost;
   };
+  $scope.retrievalTime = function() {
+    if (typeof this.retrieveJobHours != 'undefined') {
+      return Math.max(4, $scope.retrieveJobHours);
+    } else {
+      return 4;
+    }
+  }
 }
 
 /**
  * Glacier calculator
  */
 var glacierCalculator = (function() {
-
-  var retrieveJobHours = 4;
 
   /**
    * Returns the storage rate for the region
@@ -114,7 +120,7 @@ var glacierCalculator = (function() {
    */
   function peakHourlyRetrieval(scope) {
     if (typeof scope.retrieveData != 'undefined') {
-      return scope.retrieveData / retrieveJobHours;
+      return scope.retrieveData / scope.retrievalTime();
     } else {
       return 0;
     }
@@ -129,7 +135,7 @@ var glacierCalculator = (function() {
    */
   function freeHourlyRetrieval(scope) {
     if (typeof scope.storedData != 'undefined') {
-      return (scope.storedData * 0.05) / (30 * retrieveJobHours);
+      return (scope.storedData * 0.05) / (30 * Math.min(scope.retrievalTime(), 24));
     } else {
       return 0;
     }
@@ -192,13 +198,13 @@ var glacierCalculator = (function() {
    */
   cost.retrievalCost = function(scope) {
     if (typeof scope.retrieveData != 'undefined') {
-      console.log(peakHourlyRetrieval(scope));
-      console.log(freeHourlyRetrieval(scope));
+      console.log("peak: " + peakHourlyRetrieval(scope));
+      console.log("free: " + freeHourlyRetrieval(scope));
       var peakHourRetrievalData = peakHourlyRetrieval(scope) - freeHourlyRetrieval(scope);
       if (peakHourRetrievalData > 0) {
-	return regionRetrievalRate(scope) * peakHourRetrievalData * 720;
+        return regionRetrievalRate(scope) * peakHourRetrievalData * 720;
       } else {
-	return 0;
+        return 0;
       }
     } else {
       return 0;
