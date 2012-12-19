@@ -1,4 +1,4 @@
-# Unofficial AWS GLacier Calculator
+# Unofficial AWS Glacier Calculator
 
 This is the repo for the glacier calculator. The site is below
 
