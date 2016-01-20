@@ -36,14 +36,14 @@ var glacierCalculator = (function() {
    */
   function regionStorageRate(scope) {
     switch (scope.region) {
-    case 'us-east-1': return 0.01;
-    case 'us-west-1': return 0.01;
+    case 'us-east-1': return 0.007;
+    case 'us-west-1': return 0.007;
     case 'us-west-2': return 0.011;
-    case 'eu-west-1': return 0.011;
+    case 'eu-west-1': return 0.007;
     case 'eu-central-1': return 0.012;
     case 'ap-southeast-2': return 0.012;
     case 'ap-northeast-1': return 0.0114;
-    default: return 0.01;
+    default: return 0.007;
     }
   }
 
@@ -106,14 +106,14 @@ var glacierCalculator = (function() {
    */
   function regionRetrievalRate(scope) {
     switch (scope.region) {
-    case 'us-east-1': return 0.01;
-    case 'us-west-1': return 0.01;
-    case 'us-west-2': return 0.011;
-    case 'eu-west-1': return 0.011;
-    case 'eu-central-1': return 0.012;
-    case 'ap-southeast-2': return 0.0114;
-    case 'ap-northeast-1': return 0.012;
-    default: return 0.03;
+    case 'us-east-1': return 0.05;
+    case 'us-west-1': return 0.05;
+    case 'us-west-2': return 0.055;
+    case 'eu-west-1': return 0.055;
+    case 'eu-central-1': return 0.060;
+    case 'ap-southeast-2': return 0.0571;
+    case 'ap-northeast-1': return 0.06;
+    default: return 0.05;
     }
   }
 
