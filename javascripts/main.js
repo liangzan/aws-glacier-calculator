@@ -36,14 +36,14 @@ var glacierCalculator = (function() {
    */
   function regionStorageRate(scope) {
     switch (scope.region) {
-    case 'us-east-1': return 0.007;
-    case 'us-west-1': return 0.007;
-    case 'us-west-2': return 0.011;
-    case 'eu-west-1': return 0.007;
-    case 'eu-central-1': return 0.012;
-    case 'ap-southeast-2': return 0.012;
-    case 'ap-northeast-1': return 0.0114;
-    default: return 0.007;
+    case 'us-east-1': return 0.004;
+    case 'us-west-1': return 0.005;
+    case 'us-west-2': return 0.004;
+    case 'eu-west-1': return 0.004;
+    case 'eu-central-1': return 0.0045;
+    case 'ap-southeast-2': return 0.005;
+    case 'ap-northeast-1': return 0.005;
+    default: return 0.004;
     }
   }
 
