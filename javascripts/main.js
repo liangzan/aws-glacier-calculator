@@ -38,7 +38,7 @@ var glacierCalculator = (function() {
     switch (scope.region) {
     case 'us-east-1': return 0.004;
     case 'us-west-1': return 0.005;
-    case 'us-west-2': return 0.0045;
+    case 'us-west-2': return 0.004;
     case 'eu-west-1': return 0.004;
     case 'eu-central-1': return 0.0045;
     case 'ap-southeast-2': return 0.005;
